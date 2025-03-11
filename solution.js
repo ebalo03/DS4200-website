@@ -249,8 +249,8 @@ socialMediaTime.then(function(data) {
 
     // Define scales for x (time) and y (likes)
     const x = d3.scaleTime()
-    .domain(d3.extent(avgLikesDateArray, d => d.Date)) // Use aggregated data
-    .range([0, width]);
+        .domain(d3.extent(avgLikesDateArray, d => d.Date)) // Use aggregated data
+        .range([0, width]);
     
     const y = d3.scaleLinear()
         .domain([0, d3.max(avgLikesDateArray, d => d.AvgLikes)]) // Use aggregated data
