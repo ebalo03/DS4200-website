@@ -213,13 +213,14 @@ socialMediaBar.then(function(data) {
     });
 });
 
-// Load the data for the line plot
-const socialMediaTime = d3.csv("socialMediaTime.csv");
 
-socialMediaTime.then(function(data) {
+// Load the data for the line plot
+const socialMedia = d3.csv("socialMedia.csv");
+
+socialMedia.then(function(data) {
     // Convert string values to numbers and parse the date
     data.forEach(d => {
-        d.Date = d3.timeParse("%m/%d")(d.Date); // Assuming date format is MM/DD
+        d.Date = d3.timeParse("%Y-%m-%d")(d.Date); // Assuming date format is MM/DD
         d.Like = +d.Like;
     });
 
@@ -255,7 +256,7 @@ socialMediaTime.then(function(data) {
         .range([height, 0]);
 
     // Draw axes
-    const xAxis = d3.axisBottom(x).tickFormat(d3.timeFormat("%m/%d"));
+    const xAxis = d3.axisBottom(x).ticks(5).tickFormat(d3.timeFormat("%Y-%m-%d"));
     const yAxis = d3.axisLeft(y);
 
     svg.append("g")
