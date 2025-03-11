@@ -239,7 +239,7 @@ socialMediaTime.then(function(data) {
           height = 400 - margin.top - margin.bottom;
 
     // Create SVG container
-    const svg = d3.select("body").append("svg")
+    const svg = d3.select("#lineplot").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
