@@ -249,11 +249,11 @@ socialMediaTime.then(function(data) {
 
     // Define scales for x (time) and y (likes)
     const x = d3.scaleTime()
-        .domain(d3.extent(data, d => d.Date)) // Set x-axis domain to time range
-        .range([0, width]);
-
+    .domain(d3.extent(avgLikesDateArray, d => d.Date)) // Use aggregated data
+    .range([0, width]);
+    
     const y = d3.scaleLinear()
-        .domain([0, d3.max(data, d => d.Likes)]) // Set y-axis domain to range from 0 to max Likes
+        .domain([0, d3.max(avgLikesDateArray, d => d.AvgLikes)]) // Use aggregated data
         .nice()
         .range([height, 0]);
 
@@ -288,7 +288,7 @@ socialMediaTime.then(function(data) {
         .curve(d3.curveNatural); // Smooth line curve
 
     svg.append("path")
-        .data(avgLikesDateArray)
+        .datum(avgLikesDateArray)
         .attr("fill", "none")
         .attr("stroke", "#1f77b4")
         .attr("stroke-width", 2)
