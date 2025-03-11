@@ -219,7 +219,7 @@ const socialMediaTime = d3.csv("socialMedia.csv");
 socialMediaTime.then(function(data) {
     // Convert string values to numbers and parse the date
     data.forEach(d => {
-        d.Date = d3.timeParse("%m/%d")(d.Date); // Assuming date format is MM/DD
+        d.Date = d3.timeParse("%m/%d/%Y")(d.Date); // Use %Y for the full year
         d.Like = +d.Like;
     });
 
