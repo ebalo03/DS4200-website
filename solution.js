@@ -214,84 +214,84 @@ socialMediaBar.then(function(data) {
 });
 
 // Load the data for the line plot
-const socialMediaTime = d3.csv("socialMedia.csv");
+const socialMediaTime = d3.csv("socialMediaTime.csv");
 
 socialMediaTime.then(function(data) {
-    // Convert string values to numbers and parse Date
-    const parseDate = d3.timeParse("%m/%d/%Y");
-    data.forEach(function(d) {
-        d.Likes = +d.Likes;
-        d.Date = parseDate(d.Date); // Parse the date string into a Date object
+    // Convert string values to numbers and parse the date
+    data.forEach(d => {
+        d.Date = d3.timeParse("%m/%d")(d.Date); // Assuming date format is MM/DD
+        d.Like = +d.Like;
     });
 
-    // Calculate average Likes for each Date
-    const avgLikesByDate = d3.rollup(data, 
-        v => d3.mean(v, d => d.Likes), // Calculate mean for each date
+    // Aggregate data to compute average likes per date
+    const averageLikes = d3.rollup(data, 
+        v => d3.mean(v, d => d.Like), 
         d => d.Date
     );
 
-    const avgLikesDateArray = [];
-    avgLikesByDate.forEach((avgLikes, date) => {
-        avgLikesDateArray.push({ Date: date, AvgLikes: avgLikes });
-    });
+    // Convert Map to an array and sort by date
+    const processedData = Array.from(averageLikes, ([Date, Like]) => ({ Date, Like }))
+        .sort((a, b) => d3.ascending(a.Date, b.Date));
 
-    // Define the dimensions and margins for the SVG
-    const margin = { top: 20, right: 30, bottom: 40, left: 50 };
-    const width = 600 - margin.left - margin.right;
-    const height = 400 - margin.top - margin.bottom;
+    // Define dimensions and margins
+    const margin = { top: 50, right: 50, bottom: 50, left: 70 },
+          width = 600 - margin.left - margin.right,
+          height = 400 - margin.top - margin.bottom;
 
-    // Create the SVG container
-    const svg = d3.select("#lineplot").append("svg")
+    // Create SVG container
+    const svg = d3.select("body").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    // Define scales for x (time) and y (likes)
+    // Set up scales
     const x = d3.scaleTime()
-        .domain(d3.extent(avgLikesDateArray, d => d.Date)) // Use aggregated data
+        .domain(d3.extent(processedData, d => d.Date))
         .range([0, width]);
-    
+
     const y = d3.scaleLinear()
-        .domain([0, d3.max(avgLikesDateArray, d => d.AvgLikes)]) // Use aggregated data
-        .nice()
+        .domain([0, d3.max(processedData, d => d.Like)])
         .range([height, 0]);
 
-    // Add x-axis
+    // Draw axes
+    const xAxis = d3.axisBottom(x).tickFormat(d3.timeFormat("%m/%d"));
+    const yAxis = d3.axisLeft(y);
+
     svg.append("g")
         .attr("transform", `translate(0,${height})`)
-        .call(d3.axisBottom(x));
+        .call(xAxis)
+        .selectAll("text")
+        .attr("transform", "rotate(-45)")
+        .style("text-anchor", "end");
 
-    // Add y-axis
-    svg.append("g")
-        .call(d3.axisLeft(y));
+    svg.append("g").call(yAxis);
 
     // Add x-axis label
     svg.append("text")
         .attr("x", width / 2)
         .attr("y", height + margin.bottom - 10)
-        .attr("text-anchor", "middle")
+        .style("text-anchor", "middle")
         .text("Date");
 
     // Add y-axis label
     svg.append("text")
-        .attr("transform", "rotate(-90)") // Rotate the y-axis label
+        .attr("transform", "rotate(-90)")
         .attr("x", -height / 2)
-        .attr("y", -margin.left + 10)
-        .attr("text-anchor", "middle")
-        .text("Average Number of Likes");
+        .attr("y", -margin.left + 15)
+        .style("text-anchor", "middle")
+        .text("Average Likes");
 
-    // Draw the line path
+    // Draw the line
     const line = d3.line()
         .x(d => x(d.Date))
-        .y(d => y(d.AvgLikes))
-        .curve(d3.curveNatural); // Smooth line curve
+        .y(d => y(d.Like))
+        .curve(d3.curveNatural);
 
     svg.append("path")
-        .datum(avgLikesDateArray)
+        .datum(processedData)
         .attr("fill", "none")
-        .attr("stroke", "#1f77b4")
+        .attr("stroke", "steelblue")
         .attr("stroke-width", 2)
-        .attr("d", line); // Set the 'd' attribute to draw the path
+        .attr("d", line);
 });
-
