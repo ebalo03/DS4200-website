@@ -1,37 +1,101 @@
 <!DOCTYPE html>
-<html lang='en'>
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me Page</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>Homework 3 D3 Part Solution</title>
+    <style>
+        /* Basic styling for the page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
 
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 20px;
+        }
+
+        /* Styling for chart containers */
+        .chart {
+            margin: 40px auto;
+            width: 80%;  /* Makes the charts responsive */
+            max-width: 800px;
+            height: 450px; /* Adjust height of the divs */
+        }
+
+        /* Axes labels styling */
+        .axis-label {
+            font-size: 14px;
+            fill: #555;
+        }
+
+        /* Styling for the legend */
+        .legend {
+            font-size: 14px;
+            fill: #333;
+        }
+
+        /* Styling for the bars in the bar plot */
+        .bar {
+            fill: steelblue;
+        }
+
+        /* Styling for box plot elements */
+        rect {
+            stroke: #333;
+        }
+
+        /* Ensuring SVG charts are displayed at full size */
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Tooltip styling (if needed) */
+        .tooltip {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            visibility: hidden;
+        }
+    </style>
+</head>
 <body>
-    <h1>About Me, Eva</h1>
-    <p>Hello, my name is Eva. I’m a 4th year, Data Science and Economics major at Northeastern University. I graduate in the spring, but I still have 3 classes I need to take this summer. During my time in college, I studied abroad at Yonsei University in South Korea and I finished my last co-op in the fall. In my free time, I enjoy photography, knitting, cooking, exercise, and long walks. I also really enjoy trying new food places, so I usually try a new restaurant whenever I eat out. 
-    </p>
+    <h1>Social Media Data Visualizations</h1>
 
-    <h3>More Facts About Me</h3>
-    <ol>
-        <li>I’m from Dallas, Texas</li>
-        <li>I’m very tall for a woman (5’11)</li>
-        <li>I used to be a competitive fencer</li>
-        <li>I was born with an exact finger (it was surgically removed when I was a baby)</li>
-        <li>I’m a Resident Assistant for Northeastern Residential Life</li>
-    </ol>
+    <!-- Box Plot -->
+    <div class="chart" id="boxplot">
+        <h2>Box Plot: Likes by Platform</h2>
+        <!-- The Box Plot will be drawn inside this div -->
+    </div>
 
-    </p>
-    For spring break, I recently went to Mardi Gras in New Orleans with some friends. It was really fun, and it was nice to be in a warm city. We tried lots of Creole food and interesting dishes, such as frog legs and alligator. My favorite part of the trip was the swamp tour we went on. Here is a picture of a New Orleans swamp:
-    </p>
+    <!-- Side-by-side Bar Plot -->
+    <div class="chart" id="barplot">
+        <h2>Side-by-Side Bar Plot: Average Likes by Platform and Post Type</h2>
+        <!-- The Bar Plot will be drawn inside this div -->
+    </div>
 
-    <!-- # Adds an image -->
-    <img src="https://www.shoreexcursionsgroup.com/img/tour/CANOGLSWAMP-2.jpg">
+    <!-- Line Plot -->
+    <div class="chart" id="lineplot">
+        <h2>Line Plot: Average Likes Over Time</h2>
+        <!-- The Line Plot will be drawn inside this div -->
+    </div>
 
-    <a href="balogun.e@northeastern.edu">Send me an email</a>
-
-    <a href="second_page.html">Go to the second page</a>
+    <!-- Link to external JavaScript file containing the D3 code -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="solution.js"></script> 
 
 </body>
 </html>
