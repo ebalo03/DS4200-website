@@ -288,7 +288,7 @@ socialMediaTime.then(function(data) {
         .curve(d3.curveNatural); // Smooth line curve
 
     svg.append("path")
-        .data([avgLikesDateArray])
+        .datum(avgLikesDateArray)
         .attr("fill", "none")
         .attr("stroke", "#1f77b4")
         .attr("stroke-width", 2)
