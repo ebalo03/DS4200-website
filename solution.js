@@ -219,18 +219,18 @@ const socialMediaTime = d3.csv("socialMedia.csv");
 socialMediaTime.then(function(data) {
     // Convert string values to numbers and parse the date
     data.forEach(d => {
-        d.Date = d3.timeParse("%m/%d/%Y")(d.Date); // Use %Y for the full year
-        d.Like = +d.Like;
+        d.Date = d3.timeParse("%m/%d/%Y")(d.Date);
+        d.Likes = +d.Likes;
     });
 
     // Aggregate data to compute average likes per date
     const averageLikes = d3.rollup(data, 
-        v => d3.mean(v, d => d.Like), 
+        v => d3.mean(v, d => d.Likes), 
         d => d.Date
     );
 
     // Convert Map to an array and sort by date
-    const processedData = Array.from(averageLikes, ([Date, Like]) => ({ Date, Like }))
+    const processedData = Array.from(averageLikes, ([Date, Likes]) => ({ Date, Likes }))
         .sort((a, b) => d3.ascending(a.Date, b.Date));
 
     // Define dimensions and margins
@@ -251,11 +251,11 @@ socialMediaTime.then(function(data) {
         .range([0, width]);
 
     const y = d3.scaleLinear()
-        .domain([0, d3.max(processedData, d => d.Like)])
+        .domain([0, d3.max(processedData, d => d.Likes)])
         .range([height, 0]);
 
     // Draw axes
-    const xAxis = d3.axisBottom(x).tickFormat(d3.timeFormat("%m/%d"));
+    const xAxis = d3.axisBottom(x).tickFormat(d3.timeFormat("%m/%d/%Y"));
     const yAxis = d3.axisLeft(y);
 
     svg.append("g")
@@ -285,7 +285,7 @@ socialMediaTime.then(function(data) {
     // Draw the line
     const line = d3.line()
         .x(d => x(d.Date))
-        .y(d => y(d.Like))
+        .y(d => y(d.Likes))
         .curve(d3.curveNatural);
 
     svg.append("path")
