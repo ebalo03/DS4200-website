@@ -240,7 +240,7 @@ socialMediaDates.then(function(data) {
     // Add x-axis label
     svg.append("text")
         .attr("x", width / 2)
-        .attr("y", height + margin.bottom - 10)
+        .attr("y", height + margin.bottom + 10)
         .attr("text-anchor", "middle")
         .text("Date");
 
