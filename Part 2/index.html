@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 3 D3 Part Solution</title>
+    <style>
+        /* Basic styling for the page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 20px;
+        }
+
+        /* Styling for chart containers */
+        .chart {
+            margin: 40px auto;
+            width: 80%;  /* Makes the charts responsive */
+            max-width: 800px;
+            height: 450px; /* Adjust height of the divs */
+        }
+
+        /* Axes labels styling */
+        .axis-label {
+            font-size: 14px;
+            fill: #555;
+        }
+
+        /* Styling for the legend */
+        .legend {
+            font-size: 14px;
+            fill: #333;
+        }
+
+        /* Styling for the bars in the bar plot */
+        .bar {
+            fill: steelblue;
+        }
+
+        /* Styling for box plot elements */
+        rect {
+            stroke: #333;
+        }
+
+        /* Ensuring SVG charts are displayed at full size */
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Tooltip styling (if needed) */
+        .tooltip {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <h1>Social Media Data Visualizations</h1>
+
+    <!-- Box Plot -->
+    <div class="chart" id="boxplot">
+        <h2>Box Plot: Likes by Platform</h2>
+        <!-- The Box Plot will be drawn inside this div -->
+    </div>
+
+    <!-- Side-by-side Bar Plot -->
+    <div class="chart" id="barplot">
+        <h2>Side-by-Side Bar Plot: Average Likes by Platform and Post Type</h2>
+        <!-- The Bar Plot will be drawn inside this div -->
+    </div>
+
+    <!-- Line Plot -->
+    <div class="chart" id="lineplot">
+        <h2>Line Plot: Average Likes Over Time</h2>
+        <!-- The Line Plot will be drawn inside this div -->
+    </div>
+
+    <!-- Link to external JavaScript file containing the D3 code -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="solution.js"></script> 
+
+</body>
+</html>
